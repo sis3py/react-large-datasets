@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import PaginationApp from './PaginationApp';
+import InfiniteScrollingApp from './InfiniteScrollingApp';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <InfiniteScrollingApp />
   </React.StrictMode>,
   document.getElementById('root')
 );

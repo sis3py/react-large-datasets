@@ -66,6 +66,7 @@ const usePaginationReducer = (state, action) => {
 };
 
 export const usePagination = ({ defaultNbItems = 0, defaultPage = 1, defaultPageSize = 10 }) => {
+
     const [{ nbItems, page, pageSize }, dispatch] = useReducer(usePaginationReducer, { nbItems: defaultNbItems, page: defaultPage, pageSize: defaultPageSize });
 
     const paginationState = useMemo(() => getPaginationState({ nbItems, pageSize, page }), [nbItems, pageSize, page]);
@@ -78,7 +79,6 @@ export const usePagination = ({ defaultNbItems = 0, defaultPage = 1, defaultPage
         setPreviousPage: useCallback(() => dispatch({ type: "SET_PREVIOUS_PAGE" }), [dispatch]),
         page,
         pageSize,
-        nbItems,
         ...paginationState,
     };
 }
