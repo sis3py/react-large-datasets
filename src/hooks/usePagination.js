@@ -2,15 +2,15 @@ import { useReducer, useMemo, useCallback } from "react";
 
 const getNbPages = (nbItems, pageSize) => Math.ceil(nbItems / pageSize);
 
-const getIsNextEnabled = (page, nbPages) => page + 1 < nbPages;
+const getIsNextEnabled = (page, nbPages) => page < nbPages;
 
-const getIsPreviousEnabled = page => page > 0;
+const getIsPreviousEnabled = page => page - 1 > 0;
 
-const getStartIndex = (pageSize, page) => pageSize * page;
+const getStartIndex = (pageSize, page) => pageSize * (page - 1);
 
 const getEndIndex = (pageSize, page, nbItems) => {
-    const nextPageStartIndex = pageSize * (page + 1);
-    return nextPageStartIndex > nbItems ? nbItems - 1 : nextPageStartIndex - 1;
+    const nextPageStartIndex = pageSize * page;
+    return nextPageStartIndex > nbItems ? nbItems : nextPageStartIndex;
 };
 
 const getPaginationState = ({
@@ -34,7 +34,6 @@ const getPaginationState = ({
 };
 
 const usePaginationReducer = (state, action) => {
-    console.log("state", state);
     switch (action.type) {
         case "SET_NB_ITEMS":
             return { 
@@ -66,8 +65,9 @@ const usePaginationReducer = (state, action) => {
     }
 };
 
-export const usePagination = ({ nbItems, defaultPage = 0, defaultPageSize = 10 }) => {
-    const [{ page, pageSize }, dispatch] = useReducer(usePaginationReducer, { nbItems, page: defaultPage, pageSize: defaultPageSize });
+export const usePagination = ({ defaultNbItems = 0, defaultPage = 1, defaultPageSize = 10 }) => {
+    const [{ nbItems, page, pageSize }, dispatch] = useReducer(usePaginationReducer, { nbItems: defaultNbItems, page: defaultPage, pageSize: defaultPageSize });
+
     const paginationState = useMemo(() => getPaginationState({ nbItems, pageSize, page }), [nbItems, pageSize, page]);
 
     return {

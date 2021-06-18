@@ -15,3 +15,8 @@ export const createProducts = (nbProducts) => {
         quantity: faker.datatype.number(50),
     }));
 }
+
+
+export const filterProducts = (array, searchText) => searchText ? array.filter(p => p.description.toLowerCase().includes(searchText.toLowerCase()) 
+                                                                                 || p.label.toLowerCase().includes(searchText.toLowerCase()))
+                                                                : array;
