@@ -18,8 +18,6 @@ const InfiniteScrollingApp = () =>{
   // Apply filters
   const filteredProducts = useMemo(() => filterProducts(products, searchText), [products, searchText]);
 
-  console.log("boundaries 0 to  ", endIndex);
-
   // Apply infinite scrolling
   const paginatedProducts = useMemo(() => filteredProducts.slice(0, endIndex), [filteredProducts, endIndex]);
 
